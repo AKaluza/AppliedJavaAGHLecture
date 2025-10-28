@@ -1,0 +1,64 @@
+// ===== build.gradle (root) =====
+
+plugins {
+    // nic globalnie – konfiguracja idzie do subprojects
+}
+
+// Wersje i przełączniki w jednym miejscu
+ext {
+    javaVersion = 17                          // zmień na 21, jeśli chcesz
+    libs = [
+            junit   : '5.11.0',
+            mockito : '5.12.0'
+    ]
+    useInlineMockMaker = false                // ustaw na true, jeśli chcesz mockować final/static
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(rootProject.ext.javaVersion)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        // release = docelowa wersja bytecode
+        options.release = rootProject.ext.javaVersion
+    }
+
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter:${rootProject.ext.libs.junit}"
+        testImplementation "org.mockito:mockito-core:${rootProject.ext.libs.mockito}"
+
+        // (opcjonalnie) włącz mockito-inline tylko gdy potrzebne
+        if (rootProject.ext.useInlineMockMaker) {
+            testImplementation "org.mockito:mockito-inline:${rootProject.ext.libs.mockito}"
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        // Przy inline + JDK 17/21 czasem potrzebne add-opens
+        if (rootProject.ext.useInlineMockMaker) {
+            jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
+        }
+        testLogging {
+            events "passed", "skipped", "failed"
+            exceptionFormat "full"
+        }
+    }
+}
+
+// (wygodne) agregacja wszystkich testów
+tasks.register('testAll') {
+    dependsOn subprojects.collect { it.tasks.named('test') }
+}
