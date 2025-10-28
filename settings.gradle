@@ -3,9 +3,11 @@ rootProject.name = 'AppliedJavaAGHLecture'
 include ':Lecture_01_Introduction:examples'
 project(':Lecture_01_Introduction:examples').projectDir = file('Lecture_01_Introduction/examples')
 
-// include ':Lecture_02_ObjectOrientedPrograming:examples'
+include ':Lecture_02_ObjectOrientedPrograming:examples'
+project(':Lecture_02_ObjectOrientedPrograming:examples').projectDir = file('Lecture_02_ObjectOrientedPrograming/examples')
+
 // include ':Lecture_03_TestDrivenDevelopment:examples'
 
 project(':Lecture_01_Introduction:examples').projectDir = file('Lecture_01_Introduction/examples')
-// project(':Lecture_02_ObjectOrientedPrograming:examples').projectDir = file('lectures/Lecture_02_ObjectOrientedPrograming/examples')
+
 // project(':Lecture_03_TestDrivenDevelopment:examples').projectDir = file('lectures/Lecture_03_TestDrivenDevelopment/examples')

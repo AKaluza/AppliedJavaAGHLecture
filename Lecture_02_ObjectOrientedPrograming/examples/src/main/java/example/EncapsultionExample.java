@@ -1,4 +1,4 @@
-package examples3;
+package example;
 
 
 class Person {
