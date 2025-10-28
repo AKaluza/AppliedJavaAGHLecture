@@ -1,4 +1,4 @@
-package examples;
+package example;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -8,7 +8,6 @@ public class HelloWorld {
         String name2 = secondClass.getName2();
         System.out.println(name2);
         secondClass.print();
-        secondClass.getName().toLowerCase();
         secondClass.setName("Java L1");
         System.out.println(secondClass.getName());
 
