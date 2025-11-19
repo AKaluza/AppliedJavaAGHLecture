@@ -1,13 +1,17 @@
 rootProject.name = 'AppliedJavaAGHLecture'
 
-include ':Lecture_01_Introduction:examples'
-project(':Lecture_01_Introduction:examples').projectDir = file('Lecture_01_Introduction/examples')
+def lectures = [
+        'Lecture_01_Introduction',
+        'Lecture_02_ObjectOrientedPrograming',
+        'Lecture_03_TestDrivenDevelopment',
+        'Lecture_04_TDD_BDD_EXAMPLES',
+        'Lecture_05_Generics',
+        'Lecture_06__Record_and_Lambda_Expresion'
+]
 
-include ':Lecture_02_ObjectOrientedPrograming:examples'
-project(':Lecture_02_ObjectOrientedPrograming:examples').projectDir = file('Lecture_02_ObjectOrientedPrograming/examples')
-
-// include ':Lecture_03_TestDrivenDevelopment:examples'
-
-project(':Lecture_01_Introduction:examples').projectDir = file('Lecture_01_Introduction/examples')
-
-// project(':Lecture_03_TestDrivenDevelopment:examples').projectDir = file('lectures/Lecture_03_TestDrivenDevelopment/examples')
+// Automatycznie dodajemy każdy katalog jako subproject
+lectures.each { lecture ->
+    def path = ":${lecture}:examples"
+    include path
+    project(path).projectDir = file("${lecture}/examples")
+}

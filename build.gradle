@@ -38,6 +38,9 @@ subprojects {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter:${rootProject.ext.libs.junit}"
         testImplementation "org.mockito:mockito-core:${rootProject.ext.libs.mockito}"
+        // Cucumber
+        testImplementation 'io.cucumber:cucumber-java:7.18.1'
+        testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.18.1'
 
         // (opcjonalnie) włącz mockito-inline tylko gdy potrzebne
         if (rootProject.ext.useInlineMockMaker) {
